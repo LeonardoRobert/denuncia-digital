@@ -18,13 +18,6 @@ Alinhado ao **ODS 16** — Paz, Justiça e Instituições Eficazes
 
 ---
 
-## 🚀 Como publicar no GitHub Pages
-
-1. Crie um repositório no GitHub chamado `denuncia-digital`
-2. Faça upload de todos os arquivos desta pasta
-3. Vá em **Settings → Pages → Branch: main → Save**
-4. Acesse: `https://SEU_USUARIO.github.io/denuncia-digital`
-
 ## 📱 Como instalar no celular (Android)
 
 1. Abra o link do GitHub Pages no **Chrome**
