@@ -15,74 +15,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 
-<!--
-=======================================================================
-  BANCO DE DADOS — SUPABASE (PostgreSQL)
-  Projeto: Denúncia Digital — UNIG EAD — 5º Período — Tema Integrador V
-  ODS 16: Paz, Justiça e Instituições Eficazes
-
-  MER (Modelo Entidade-Relacionamento):
-  ┌─────────────────────────────┐    ┌──────────────────────────────────┐
-  │       DENUNCIAS             │    │       PESQUISA_PERFIL            │
-  ├─────────────────────────────┤    ├──────────────────────────────────┤
-  │ id          UUID PK         │    │ id           UUID PK             │
-  │ tipo        VARCHAR(100)    │    │ faixa_etaria VARCHAR(20)         │
-  │ plataforma  VARCHAR(100)    │    │ periodo_uso  VARCHAR(20)         │
-  │ gravidade   VARCHAR(10)     │    │ razoes_uso   TEXT[] (array)      │
-  │ faixa_etaria VARCHAR(20)   │    │ apps_usados  TEXT[] (array)      │
-  │ descricao   TEXT            │    │ sabe_denunciar BOOLEAN           │
-  │ ajuda       VARCHAR(20)     │    │ created_at   TIMESTAMPTZ         │
-  │ created_at  TIMESTAMPTZ     │    └──────────────────────────────────┘
-  └─────────────────────────────┘
-
-  SQL DE CRIAÇÃO DAS TABELAS (rodar no Supabase SQL Editor):
-  -----------------------------------------------------------------------
-
-  -- Tabela de denúncias anônimas
-  CREATE TABLE denuncias (
-    id           UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-    tipo         VARCHAR(100) NOT NULL,
-    plataforma   VARCHAR(100) NOT NULL,
-    gravidade    VARCHAR(10)  NOT NULL CHECK (gravidade IN ('Baixa','Média','Alta')),
-    faixa_etaria VARCHAR(30)  NOT NULL,
-    descricao    TEXT,
-    ajuda        VARCHAR(20),
-    created_at   TIMESTAMPTZ DEFAULT NOW()
-  );
-
-  -- Tabela da pesquisa de perfil (questionário anônimo)
-  CREATE TABLE pesquisa_perfil (
-    id              UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-    faixa_etaria    VARCHAR(20) NOT NULL,
-    periodo_uso     VARCHAR(20) NOT NULL,
-    razoes_uso      TEXT[]     NOT NULL,
-    apps_usados     TEXT[]     NOT NULL,
-    sabe_denunciar  BOOLEAN    NOT NULL,
-    created_at      TIMESTAMPTZ DEFAULT NOW()
-  );
-
-  -- Habilitar acesso público anônimo (sem autenticação) — Row Level Security
-  ALTER TABLE denuncias ENABLE ROW LEVEL SECURITY;
-  ALTER TABLE pesquisa_perfil ENABLE ROW LEVEL SECURITY;
-
-  -- Policies: qualquer um pode inserir e ler (dados anônimos)
-  CREATE POLICY "insert_denuncia" ON denuncias FOR INSERT WITH CHECK (true);
-  CREATE POLICY "select_denuncia" ON denuncias FOR SELECT USING (true);
-  CREATE POLICY "insert_pesquisa" ON pesquisa_perfil FOR INSERT WITH CHECK (true);
-  CREATE POLICY "select_pesquisa" ON pesquisa_perfil FOR SELECT USING (true);
-
-  -----------------------------------------------------------------------
-  COMO CONFIGURAR O SUPABASE:
-  1. Acesse https://supabase.com e crie uma conta gratuita
-  2. Crie um novo projeto (anote a senha do banco)
-  3. No menu lateral: SQL Editor → cole o SQL acima → Run
-  4. Vá em Settings > API e copie:
-     - Project URL  → cole em SUPABASE_URL abaixo
-     - anon public key → cole em SUPABASE_KEY abaixo
-  5. Salve e faça deploy no GitHub Pages
-=======================================================================
--->
-
 <style>
   :root {
     --bg: #0a0d14;
@@ -875,17 +807,11 @@
 <script>
 /* ===============================================================
    CONFIGURAÇÃO DO SUPABASE
-   ---------------------------------------------------------------
-   1. Crie uma conta gratuita em https://supabase.com
-   2. Crie um projeto novo
-   3. No SQL Editor, rode o SQL que está nos comentários do <head>
-   4. Em Settings > API, copie a Project URL e a anon key
-   5. Cole aqui embaixo e salve
    =============================================================== */
-const SUPABASE_URL = 'https://zdskuvdsdbuvoxtpdgsm.supabase.co';   // ← substitua
-const SUPABASE_KEY = 'sb_publishable_nrthKxLeNqEfsOPEUFzAMg_4fytm49z';                 // ← substitua
+const SUPABASE_URL = 'https://zdskuvdsdbuvoxtpdgsm.supabase.co';   
+const SUPABASE_KEY = 'sb_publishable_nrthKxLeNqEfsOPEUFzAMg_4fytm49z';                 
 
-/* Cabeçalhos padrão para todas as chamadas à API REST do Supabase */
+
 const SB_HEADERS = {
   'Content-Type': 'application/json',
   'apikey': SUPABASE_KEY,
